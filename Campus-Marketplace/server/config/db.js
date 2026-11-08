@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campus_marketplace');
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    return conn;
+  } catch (error) {
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    console.warn('⚠️  Continuing server execution without MongoDB connection. Update MONGODB_URI in .env to connect.');
+    return null;
+  }
+};
+
+module.exports = connectDB;
